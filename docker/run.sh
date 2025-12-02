@@ -45,15 +45,15 @@ if [ ! -z "$WANDB_API_KEY" ]; then
     ENV_OPTS="$ENV_OPTS -e WANDB_API_KEY=$WANDB_API_KEY"
 fi
 
-# Validation function
+# Validation function - comprehensive check
 validate_env() {
-    echo "Validating environment..."
+    echo "Running comprehensive environment validation..."
     docker run --gpus all --rm \
         --ipc=host \
         $MOUNT_OPTS \
         $ENV_OPTS \
         $FULL_IMAGE \
-        validate-env
+        python /workspace/lab/docker/validate.py
 }
 
 # Jupyter function
